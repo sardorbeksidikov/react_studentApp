@@ -1,76 +1,108 @@
 {
   "students": [
     {
-      "id":1,
-      "name":"Sardorbek",
+      "id": "1",
+      "name": "Sardorbek",
       "lastName": "Sidikov",
       "group": "N45",
       "doesWork": true
-
-      
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Ulugbek",
       "lastName": "Eshnazarov",
       "group": "N45",
       "doesWork": false
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Salmonbek",
       "lastName": "Akbarov",
       "group": "N45",
       "doesWork": true
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Marjona",
       "lastName": "Bobobekova",
       "group": "N208",
       "doesWork": false
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Sabrina",
       "lastName": "Botayena",
       "group": "N11",
       "doesWork": false
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Kamila",
       "lastName": "Iskandarova",
       "group": "N208",
       "doesWork": true
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Jasmina",
       "lastName": "Oralova",
       "group": "N208",
       "doesWork": true
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Parvina",
       "lastName": "Yoldasheva",
       "group": "N11",
       "doesWork": false
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Yodgora",
       "lastName": "Amirbekova",
       "group": "N209",
       "doesWork": true
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Gulirano",
       "lastName": "Azizjonova",
       "group": "N210",
       "doesWork": false
+    },
+    {
+      "id": "5376",
+      "title": "",
+      "brand": "",
+      "stock": "",
+      "description": "",
+      "price": "",
+      "discountPercentage": "",
+      "": "",
+      "filter": "N208"
+    },
+    {
+      "id": "6daf",
+      "name": "",
+      "lastName": "",
+      "group": "N45",
+      "doesWork": true,
+      "": "2",
+      "filter": "N208"
+    },
+    {
+      "id": "a47e",
+      "name": "fdassfd",
+      "lastName": "fadsdfa",
+      "group": "N208",
+      "doesWork": true
+    },
+    {
+      "id": "acdf",
+      "name": "fdafdfda",
+      "lastName": "fdasfdaf",
+      "group": "N210",
+      "doesWork": true
     }
   ]
 }
