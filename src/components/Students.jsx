@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Students = () => {
   
@@ -26,6 +26,18 @@ const Students = () => {
           el.group.toLowerCase().includes(event.target.value)
       )
     );
+  };
+
+  const navegation = useNavigate();
+  const deleteProduct = (i) => {
+    if (window.confirm("Delete Student?")) {
+      axios.delete(`http://localhost:3000/students/${i}`);
+      window.location.reload();
+    }
+  };
+
+  const editProduct = (id) => {
+    navegation(`/edit/${id}`);
   };
   
   return (
@@ -76,12 +88,15 @@ const Students = () => {
                 <td className="border">{el.group}</td>
                 <td className="border">{el.doesWork ? "✅" : "❌"}</td>
                 <td className="border  d-flex gap-2">
-                  <button className="btn btn-primary w-50">
+                  <Link to={"edit"} className="btn btn-primary w-50">
                     <FaEdit />
-                  </button>
-                  <button className="btn btn-danger w-50">
+                  </Link>
+                  <Link
+                    onClick={deleteProduct}
+                    to={"delete"}
+                    className="btn btn-danger w-50">
                     <MdDelete />
-                  </button>
+                  </Link>
                 </td>
               </tr>
             );
