@@ -3,11 +3,15 @@ import React, { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
+import { Pagination } from 'react-bootstrap';
 
 const Students = () => {
   
   const [data, setData] = useState([]);
   const [records, setRecords] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postParPage, setPostParPage] = useState(12);
+
   useEffect(() => {
     axios
       .get("http://localhost:3000/students")
@@ -17,6 +21,10 @@ const Students = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const lastPostIndex = currentPage * postParPage;
+  const fristPostIndex  = lastPostIndex - postParPage;
+  const currentPosts = records.slice(fristPostIndex, lastPostIndex)
   const Filter = (event) => {
     setRecords(
       data.filter(
@@ -28,13 +36,6 @@ const Students = () => {
     );
   };
 
-  const navegation = useNavigate();
-  const deleteProduct = (i) => {
-    if (window.confirm("Delete Student?")) {
-      axios.delete(`http://localhost:3000/students/${i}`);
-      window.location.reload();
-    }
-  };
 
   const editProduct = (id) => {
     navegation(`/edit/${id}`);
@@ -92,8 +93,6 @@ const Students = () => {
                     <FaEdit />
                   </Link>
                   <Link
-                    onClick={deleteProduct}
-                    to={"delete"}
                     className="btn btn-danger w-50">
                     <MdDelete />
                   </Link>
@@ -103,6 +102,7 @@ const Students = () => {
           })}
         </tbody>
       </table>
+      <Pagination/>
     </div>
   );
 };
