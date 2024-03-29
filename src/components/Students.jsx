@@ -3,14 +3,18 @@ import React, { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import { Pagination } from 'react-bootstrap';
+import { Pagination } from "react-bootstrap";
 
 const Students = () => {
-  
   const [data, setData] = useState([]);
   const [records, setRecords] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postParPage, setPostParPage] = useState(12);
+  const recordsPerPage = 5;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const currentRecords = records.slice(firstIndex, lastIndex);
+  const totalPages = Math.ceil(records.length / recordsPerPage);
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   useEffect(() => {
     axios
@@ -22,9 +26,6 @@ const Students = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const lastPostIndex = currentPage * postParPage;
-  const fristPostIndex  = lastPostIndex - postParPage;
-  const currentPosts = records.slice(fristPostIndex, lastPostIndex)
   const Filter = (event) => {
     setRecords(
       data.filter(
@@ -36,11 +37,28 @@ const Students = () => {
     );
   };
 
+  const navigation = useNavigate();
 
   const editProduct = (id) => {
-    navegation(`/edit/${id}`);
+    navigation(`/edit/${id}`);
   };
-  
+
+  const handlePrePage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleChangePage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   return (
     <div className="container mt-5">
       <div className="input-group w-100">
@@ -63,7 +81,7 @@ const Students = () => {
               Id
             </th>
             <th className="border" scope="col">
-              FristName
+              FirstName
             </th>
             <th className="border" scope="col">
               LastName
@@ -80,7 +98,7 @@ const Students = () => {
           </tr>
         </thead>
         <tbody>
-          {records.map((el, i) => {
+          {currentRecords.map((el, i) => {
             return (
               <tr scope="row" key={i}>
                 <td className="border">{i + 1}</td>
@@ -92,8 +110,7 @@ const Students = () => {
                   <Link to={"edit"} className="btn btn-primary w-50">
                     <FaEdit />
                   </Link>
-                  <Link
-                    className="btn btn-danger w-50">
+                  <Link className="btn btn-danger w-50">
                     <MdDelete />
                   </Link>
                 </td>
@@ -102,7 +119,31 @@ const Students = () => {
           })}
         </tbody>
       </table>
-      <Pagination/>
+      <nav>
+        <ul className="pagination">
+          <li className="page-item">
+            <button className="page-link" onClick={handlePrePage}>
+              Prev
+            </button>
+          </li>
+          {pageNumbers.map((number) => (
+            <li
+              key={number}
+              className={`page-item ${currentPage === number && "active"}`}>
+              <button
+                className="page-link"
+                onClick={() => handleChangePage(number)}>
+                {number}
+              </button>
+            </li>
+          ))}
+          <li className="page-item">
+            <button className="page-link" onClick={handleNextPage}>
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };
